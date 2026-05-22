@@ -1,7 +1,7 @@
 package com.salvarez.data.repository
 
 import com.salvarez.data.datasource.RickAndMortyRemoteDataSource
-import com.salvarez.domain.RickAndMortyRepository
+import com.salvarez.domain.repository.RickAndMortyRepository
 import com.salvarez.domain.model.RickAndMortyCharacter
 import com.salvarez.domain.model.RickAndMortyError
 import com.salvarez.domain.model.RickAndMortyResult

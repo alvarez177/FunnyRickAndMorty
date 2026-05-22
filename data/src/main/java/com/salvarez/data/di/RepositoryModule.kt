@@ -1,7 +1,7 @@
 package com.salvarez.data.di
 
 import com.salvarez.data.repository.RickAndMortyDataRepository
-import com.salvarez.domain.RickAndMortyRepository
+import com.salvarez.domain.repository.RickAndMortyRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
