@@ -84,8 +84,6 @@ class GetRickAndMortyCharactersViewModel @Inject constructor(
                                     id = rickAndMortyCharacter.id,
                                     name = rickAndMortyCharacter.name,
                                     status = rickAndMortyCharacter.status,
-                                    species = rickAndMortyCharacter.species,
-                                    gender = rickAndMortyCharacter.gender,
                                     image = rickAndMortyCharacter.image,
                                 )
                             }
