@@ -20,6 +20,14 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    fun provideOkHttpClient(): OkHttpClient {
+        return OkHttpClient
+            .Builder()
+            .build()
+    }
+
+    @Provides
+    @Singleton
     fun provideRickAndMortyRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder().baseUrl(RICK_AND_MORTY_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

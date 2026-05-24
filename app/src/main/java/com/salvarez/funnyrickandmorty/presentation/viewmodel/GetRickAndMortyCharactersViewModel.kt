@@ -9,9 +9,11 @@ import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMo
 import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyIntent
 import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyReducer
 import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyScreenState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class GetRickAndMortyCharactersViewModel @Inject constructor(
     private val getRickAndMortyCharacters: GetRickAndMortyCharactersUseCase
 ) :
@@ -30,7 +32,7 @@ class GetRickAndMortyCharactersViewModel @Inject constructor(
             val rickAndMortyCharactersResult = getRickAndMortyCharacters.invoke()
             when (rickAndMortyCharactersResult) {
                 is RickAndMortyResult.Error -> {
-                    when (rickAndMortyCharactersResult) {
+                    when (rickAndMortyCharactersResult.error) {
                         RickAndMortyError.NoInternet,
                         RickAndMortyError.Timeout -> {
                             sendEvent(
@@ -90,6 +92,15 @@ class GetRickAndMortyCharactersViewModel @Inject constructor(
                         ))
                 }
             }
+        }
+    }
+
+    fun onIntent(rickAndMortyCharacterIntent: RickAndMortyIntent) {
+        if (rickAndMortyCharacterIntent is RickAndMortyIntent.RetryClicked) {
+            sendEvent(rickAndMortyCharacterIntent)
+            fetchRickAndMortyCharacters()
+        } else {
+            sendEvent(rickAndMortyCharacterIntent)
         }
     }
 }

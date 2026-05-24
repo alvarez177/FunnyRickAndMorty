@@ -48,12 +48,12 @@ class RickAndMortyReducer :
                 ) to null
             }
 
-            RickAndMortyIntent.RetryAction -> {
+            RickAndMortyIntent.RetryClicked -> {
                 val updatedRemainingAttempts = maxOf(0, previousState.remainingRetryAttempts - 1)
                 previousState.copy(
                     uiState = RickAndMortyUiState.Loading,
                     remainingRetryAttempts = updatedRemainingAttempts
-                ) to RickAndMortyEffect.RetryAction
+                ) to null
             }
         }
     }

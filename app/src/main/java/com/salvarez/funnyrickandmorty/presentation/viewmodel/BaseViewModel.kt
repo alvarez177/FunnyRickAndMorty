@@ -22,11 +22,11 @@ abstract class BaseViewModel<State : Reducer.ViewState, ViewIntent : Reducer.Vie
     private val _event: MutableSharedFlow<ViewIntent> = MutableSharedFlow()
     val event: SharedFlow<ViewIntent> get() = _event.asSharedFlow()
 
-    private val _effects: Channel<Effect> = Channel(capacity = Channel.Factory.CONFLATED)
-    val effects: Flow<Effect> = _effects.receiveAsFlow()
+    private val _effect: Channel<Effect> = Channel(capacity = Channel.Factory.CONFLATED)
+    val effect: Flow<Effect> = _effect.receiveAsFlow()
 
     private fun sendEffect(effect: Effect) {
-        _effects.trySend(effect)
+        _effect.trySend(effect)
     }
 
     fun sendEvent(event: ViewIntent) {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.salvarez.funnyrickandmorty.presentation.ui.RickAndMortyCharactersScreenRoute
 import com.salvarez.funnyrickandmorty.ui.theme.FunnyRickAndMortyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,7 +14,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            FunnyRickAndMortyTheme { }
+            FunnyRickAndMortyTheme {
+                RickAndMortyCharactersScreenRoute()
+            }
         }
     }
 }
