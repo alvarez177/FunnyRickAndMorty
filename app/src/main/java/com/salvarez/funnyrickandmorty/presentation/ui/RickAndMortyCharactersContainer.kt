@@ -32,7 +32,10 @@ fun RickAndMortyCharactersContainer(
     ) {
 
         items(
-            rickAndMortyCharacters
+           items = rickAndMortyCharacters,
+            key = { character ->
+                character.id
+            }
         ) { character ->
 
             RickAndMortyCharacterItem(

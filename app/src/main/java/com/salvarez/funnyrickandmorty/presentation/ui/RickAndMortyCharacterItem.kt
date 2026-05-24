@@ -20,10 +20,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
+import com.salvarez.funnyrickandmorty.R
 import com.salvarez.funnyrickandmorty.model.RickAndMortyCharacterSupportingVisual
 
 @Composable
@@ -42,12 +47,17 @@ fun RickAndMortyCharacterItem(rickAndMortyCharacterSupportingVisual: RickAndMort
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AsyncImage(
-                model = rickAndMortyCharacterSupportingVisual.image,
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(rickAndMortyCharacterSupportingVisual.image)
+                    .crossfade(true)
+                    .build(),
                 contentDescription = null,
                 modifier = Modifier
                     .size(120.dp)
                     .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                placeholder = painterResource(R.drawable.placerholder_image),
+                error = painterResource(R.drawable.image_not_found)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
