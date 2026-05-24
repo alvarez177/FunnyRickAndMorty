@@ -1,7 +1,6 @@
 package com.salvarez.funnyrickandmorty.presentation.structuredefinition
 
 import com.salvarez.domain.model.RickAndMortyError
-import com.salvarez.funnyrickandmorty.model.ErrorAction
 import com.salvarez.funnyrickandmorty.model.RickAndMortyCharacterSupportingVisual
 
 sealed interface RickAndMortyUiState {
@@ -11,6 +10,6 @@ sealed interface RickAndMortyUiState {
         val error: RickAndMortyError,
         val title: String,
         val subtitle: String,
-        val errorAction: ErrorAction
+        val buttonText: String
     ) : RickAndMortyUiState
 }

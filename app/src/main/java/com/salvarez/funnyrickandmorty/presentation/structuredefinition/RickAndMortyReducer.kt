@@ -1,10 +1,10 @@
 package com.salvarez.funnyrickandmorty.presentation.structuredefinition
 
-import com.salvarez.funnyrickandmorty.model.ErrorAction
-import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyUiState.Error
-import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyUiState.Success
+import com.salvarez.funnyrickandmorty.presentation.resource.RickAndMortyCharactersResource
 
-class RickAndMortyReducer :
+class RickAndMortyReducer(
+    private val rickAndMortyCharactersResource: RickAndMortyCharactersResource
+) :
     Reducer<RickAndMortyScreenState, RickAndMortyIntent, RickAndMortyEffect> {
 
     companion object {
@@ -17,17 +17,17 @@ class RickAndMortyReducer :
     ): Pair<RickAndMortyScreenState, RickAndMortyEffect?> {
         return when (intent) {
             is RickAndMortyIntent.ShowError -> {
-                val errorAction = if (previousState.remainingRetryAttempts > 0) {
-                    ErrorAction.Retry
+                val buttonText = if (previousState.remainingRetryAttempts > 0) {
+                    rickAndMortyCharactersResource.getRetryButtonText()
                 } else {
-                    ErrorAction.Exit
+                    rickAndMortyCharactersResource.getExitAppButtonText()
                 }
                 previousState.copy(
-                    uiState = Error(
+                    uiState = RickAndMortyUiState.Error(
                         error = intent.error,
                         title = intent.title,
                         subtitle = intent.subtitle,
-                        errorAction = errorAction
+                        buttonText = buttonText
                     )
                 ) to null
             }
@@ -40,7 +40,7 @@ class RickAndMortyReducer :
 
             is RickAndMortyIntent.ShowRickAndMortyCharacters -> {
                 previousState.copy(
-                    uiState = Success(
+                    uiState = RickAndMortyUiState.Success(
                         data = intent.rickAndMortyCharacters
                     ),
                     characters = intent.rickAndMortyCharacters,
@@ -50,10 +50,14 @@ class RickAndMortyReducer :
 
             RickAndMortyIntent.RetryClicked -> {
                 val updatedRemainingAttempts = maxOf(0, previousState.remainingRetryAttempts - 1)
-                previousState.copy(
-                    uiState = RickAndMortyUiState.Loading,
-                    remainingRetryAttempts = updatedRemainingAttempts
-                ) to null
+                if (previousState.remainingRetryAttempts > 0) {
+                    previousState.copy(
+                        uiState = RickAndMortyUiState.Loading,
+                        remainingRetryAttempts = updatedRemainingAttempts
+                    ) to RickAndMortyEffect.ReLoadCharacters
+                } else {
+                    previousState to RickAndMortyEffect.ApplicationExit
+                }
             }
         }
     }

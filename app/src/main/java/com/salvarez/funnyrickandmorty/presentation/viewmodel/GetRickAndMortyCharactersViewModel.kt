@@ -21,7 +21,7 @@ class GetRickAndMortyCharactersViewModel @Inject constructor(
 ) :
     BaseViewModel<RickAndMortyScreenState, RickAndMortyIntent, RickAndMortyEffect>(
         initialState = RickAndMortyScreenState(),
-        reducer = RickAndMortyReducer()
+        reducer = RickAndMortyReducer(resource)
     ) {
 
     init {
@@ -97,12 +97,7 @@ class GetRickAndMortyCharactersViewModel @Inject constructor(
         }
     }
 
-    fun onIntent(rickAndMortyCharacterIntent: RickAndMortyIntent) {
-        if (rickAndMortyCharacterIntent is RickAndMortyIntent.RetryClicked) {
-            sendEvent(rickAndMortyCharacterIntent)
-            fetchRickAndMortyCharacters()
-        } else {
-            sendEvent(rickAndMortyCharacterIntent)
-        }
+    fun onRetryClicked() {
+        sendEvent(RickAndMortyIntent.RetryClicked)
     }
 }

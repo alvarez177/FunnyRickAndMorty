@@ -7,4 +7,6 @@ interface RickAndMortyCharactersResource {
     fun getUnknownErrorTitle(): String
     fun getTryAgainErrorSubtitle(): String
     fun getContactToSupportErrorSubtitle(): String
+    fun getRetryButtonText(): String
+    fun getExitAppButtonText(): String
 }

@@ -10,26 +10,34 @@ class RickAndMortyCharactersDataResource @Inject constructor(
     private val context: Context
 ) : RickAndMortyCharactersResource{
     override fun getNoInternetErrorTitle(): String {
-        return context.resources.getString(R.string.no_internet_error_title)
+        return context.getString(R.string.no_internet_error_title)
     }
 
     override fun getServerErrorTitle(): String {
-        return context.resources.getString(R.string.server_error_title)
+        return context.getString(R.string.server_error_title)
     }
 
     override fun getNoDataToShowErrorTitle(): String {
-        return context.resources.getString(R.string.no_data_to_show_error_title)
+        return context.getString(R.string.no_data_to_show_error_title)
     }
 
     override fun getUnknownErrorTitle(): String {
-        return context.resources.getString(R.string.unknown_error_title)
+        return context.getString(R.string.unknown_error_title)
     }
 
     override fun getTryAgainErrorSubtitle(): String {
-        return context.resources.getString(R.string.try_again_later_error_subtitle)
+        return context.getString(R.string.try_again_later_error_subtitle)
     }
 
     override fun getContactToSupportErrorSubtitle(): String {
-        return context.resources.getString(R.string.contact_to_support_error_subtitle)
+        return context.getString(R.string.contact_to_support_error_subtitle)
+    }
+
+    override fun getRetryButtonText(): String {
+        return context.getString(R.string.retry_button_text)
+    }
+
+    override fun getExitAppButtonText(): String {
+        return context.getString(R.string.out_button_text)
     }
 }
