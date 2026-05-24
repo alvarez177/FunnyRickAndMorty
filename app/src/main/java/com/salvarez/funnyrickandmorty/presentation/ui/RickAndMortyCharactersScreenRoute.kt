@@ -17,14 +17,4 @@ fun RickAndMortyCharactersScreenRoute(
         screenState = screenState,
         onIntent = viewModel::onIntent
     )
-
-    LaunchedEffect(Unit) {
-        viewModel.effect.collect { effect ->
-            when (effect) {
-                RickAndMortyEffect.RetryAction -> {
-                    viewModel.fetchRickAndMortyCharacters()
-                }
-            }
-        }
-    }
 }

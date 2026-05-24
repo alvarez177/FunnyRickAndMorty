@@ -5,6 +5,7 @@ import com.salvarez.domain.model.RickAndMortyError
 import com.salvarez.domain.model.RickAndMortyResult
 import com.salvarez.domain.usecase.GetRickAndMortyCharactersUseCase
 import com.salvarez.funnyrickandmorty.model.RickAndMortyCharacterSupportingVisual
+import com.salvarez.funnyrickandmorty.presentation.resource.RickAndMortyCharactersResource
 import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyEffect
 import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyIntent
 import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyReducer
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GetRickAndMortyCharactersViewModel @Inject constructor(
-    private val getRickAndMortyCharacters: GetRickAndMortyCharactersUseCase
+    private val getRickAndMortyCharacters: GetRickAndMortyCharactersUseCase,
+    private val resource: RickAndMortyCharactersResource
 ) :
     BaseViewModel<RickAndMortyScreenState, RickAndMortyIntent, RickAndMortyEffect>(
         initialState = RickAndMortyScreenState(),
@@ -38,8 +40,8 @@ class GetRickAndMortyCharactersViewModel @Inject constructor(
                             sendEvent(
                                 event = RickAndMortyIntent.ShowError(
                                     RickAndMortyError.NoInternet,
-                                    title = "Error de conexión a internet ó expiro el tiempo de la solicitud",
-                                    subtitle = "Intentalo mas tarde."
+                                    title = resource.getNoInternetErrorTitle(),
+                                    subtitle = resource.getTryAgainErrorSubtitle()
                                 )
                             )
                         }
@@ -49,8 +51,8 @@ class GetRickAndMortyCharactersViewModel @Inject constructor(
                             sendEvent(
                                 event = RickAndMortyIntent.ShowError(
                                     RickAndMortyError.Server,
-                                    title = "Error de conexión con el servidor",
-                                    subtitle = "Intentalo mas tarde."
+                                    title = resource.getServerErrorTitle(),
+                                    subtitle = resource.getTryAgainErrorSubtitle()
                                 )
                             )
                         }
@@ -59,8 +61,8 @@ class GetRickAndMortyCharactersViewModel @Inject constructor(
                             sendEvent(
                                 event = RickAndMortyIntent.ShowError(
                                     RickAndMortyError.EmptyCharacters,
-                                    title = "No se encontrarón caracteres",
-                                    subtitle = "Intentalo mas tarde."
+                                    title = resource.getNoDataToShowErrorTitle(),
+                                    subtitle = resource.getTryAgainErrorSubtitle()
                                 )
                             )
                         }
@@ -69,8 +71,8 @@ class GetRickAndMortyCharactersViewModel @Inject constructor(
                             sendEvent(
                                 event = RickAndMortyIntent.ShowError(
                                     RickAndMortyError.Unknown,
-                                    title = "Error desconocido",
-                                    subtitle = "Contacte a soporte."
+                                    title = resource.getUnknownErrorTitle(),
+                                    subtitle = resource.getContactToSupportErrorSubtitle()
                                 )
                             )
                         }

@@ -23,13 +23,14 @@ import com.salvarez.funnyrickandmorty.R
 
 @Composable
 fun RickAndMortyErrorScreen(
+    modifier: Modifier,
     title: String,
     subtitle: String,
     buttonText: String,
     onButtonClick: () -> Unit = {}
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .background(color =  androidx.compose.ui.graphics.Color.White)
             .fillMaxSize()
             .padding(horizontal = 24.dp),
@@ -86,6 +87,7 @@ fun RickAndMortyErrorScreen(
 @Composable
 private fun RickAndMortyScreenPreview() {
     RickAndMortyErrorScreen(
+        modifier = Modifier,
         title = "Error de conexión a internet",
         subtitle = "Intentelo de nuevo.",
         buttonText = "Reintentar",

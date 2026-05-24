@@ -14,11 +14,12 @@ import com.salvarez.funnyrickandmorty.model.RickAndMortyCharacterSupportingVisua
 
 @Composable
 fun RickAndMortyCharactersContainer(
+    modifier: Modifier,
     rickAndMortyCharacters: List<RickAndMortyCharacterSupportingVisual>
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
 
         contentPadding =
             PaddingValues(16.dp),
@@ -73,6 +74,7 @@ fun RickAndMortyCharactersContainerPreview() {
         image = ""
     )
     RickAndMortyCharactersContainer(
+        modifier = Modifier,
         rickAndMortyCharacters = listOf(
             rickAndMorty0,
             rickAndMorty1,
