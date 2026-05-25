@@ -2,4 +2,14 @@
 <resources>
 
     <style name="Theme.FunnyRickAndMorty" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.FunnyRickAndMorty.Splash"
+        parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="android:windowBackground">
+            @drawable/splash_screen
+        </item>
+
+    </style>
+
 </resources>
