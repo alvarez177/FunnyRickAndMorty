@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.salvarez.domain.model.RickAndMortyError
 import com.salvarez.domain.model.RickAndMortyResult
 import com.salvarez.domain.usecase.GetRickAndMortyCharactersUseCase
+import com.salvarez.funnyrickandmorty.di.IoDispatcher
 import com.salvarez.funnyrickandmorty.model.RickAndMortyCharacterSupportingVisual
 import com.salvarez.funnyrickandmorty.presentation.resource.RickAndMortyCharactersResource
 import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyEffect
@@ -11,13 +12,18 @@ import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMo
 import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyReducer
 import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class GetRickAndMortyCharactersViewModel @Inject constructor(
     private val getRickAndMortyCharacters: GetRickAndMortyCharactersUseCase,
-    private val resource: RickAndMortyCharactersResource
+    private val resource: RickAndMortyCharactersResource,
+    @IoDispatcher
+    private val ioDispatcher: CoroutineDispatcher
 ) :
     BaseViewModel<RickAndMortyScreenState, RickAndMortyIntent, RickAndMortyEffect>(
         initialState = RickAndMortyScreenState(),
@@ -31,7 +37,8 @@ class GetRickAndMortyCharactersViewModel @Inject constructor(
     fun fetchRickAndMortyCharacters() {
         viewModelScope.launch {
             sendEvent(RickAndMortyIntent.ShowLoading)
-            val rickAndMortyCharactersResult = getRickAndMortyCharacters.invoke()
+            val rickAndMortyCharactersResult =
+                withContext(ioDispatcher) { getRickAndMortyCharacters.invoke() }
             when (rickAndMortyCharactersResult) {
                 is RickAndMortyResult.Error -> {
                     when (rickAndMortyCharactersResult.error) {
