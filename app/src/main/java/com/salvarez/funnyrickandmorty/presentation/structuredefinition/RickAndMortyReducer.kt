@@ -9,6 +9,8 @@ class RickAndMortyReducer(
 
     companion object {
         private const val MAX_RETRY_ATTEMPTS = 2
+        private const val ONE_LESS_ATTEMPT = 1
+        private const val ZERO = 0
     }
 
     override fun reduce(
@@ -49,8 +51,8 @@ class RickAndMortyReducer(
             }
 
             RickAndMortyIntent.RetryClicked -> {
-                val updatedRemainingAttempts = maxOf(0, previousState.remainingRetryAttempts - 1)
-                if (previousState.remainingRetryAttempts > 0) {
+                val updatedRemainingAttempts = maxOf(ZERO, previousState.remainingRetryAttempts - ONE_LESS_ATTEMPT)
+                if (previousState.remainingRetryAttempts > ZERO) {
                     previousState.copy(
                         uiState = RickAndMortyUiState.Loading,
                         remainingRetryAttempts = updatedRemainingAttempts
