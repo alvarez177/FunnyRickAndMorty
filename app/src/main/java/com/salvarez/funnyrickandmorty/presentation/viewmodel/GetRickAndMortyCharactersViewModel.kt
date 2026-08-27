@@ -6,6 +6,7 @@ import com.salvarez.domain.model.RickAndMortyResult
 import com.salvarez.domain.usecase.GetRickAndMortyCharactersUseCase
 import com.salvarez.funnyrickandmorty.di.IoDispatcher
 import com.salvarez.funnyrickandmorty.model.RickAndMortyCharacterSupportingVisual
+import com.salvarez.funnyrickandmorty.presentation.handler.ErrorHandler
 import com.salvarez.funnyrickandmorty.presentation.resource.RickAndMortyCharactersResource
 import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyEffect
 import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyIntent
@@ -13,7 +14,6 @@ import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMo
 import com.salvarez.funnyrickandmorty.presentation.structuredefinition.RickAndMortyScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -23,7 +23,8 @@ class GetRickAndMortyCharactersViewModel @Inject constructor(
     private val getRickAndMortyCharacters: GetRickAndMortyCharactersUseCase,
     private val resource: RickAndMortyCharactersResource,
     @IoDispatcher
-    private val ioDispatcher: CoroutineDispatcher
+    private val ioDispatcher: CoroutineDispatcher,
+    val errorHandler: ErrorHandler
 ) :
     BaseViewModel<RickAndMortyScreenState, RickAndMortyIntent, RickAndMortyEffect>(
         initialState = RickAndMortyScreenState(),
